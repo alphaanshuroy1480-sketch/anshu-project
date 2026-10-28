@@ -4,159 +4,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1120">
-  <title>Study Tracker</title>
+  <title>Friendship Compatibility 🤝</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <main class="app">
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">YOUR PERSONAL DASHBOARD</p>
-        <h1>Study Tracker <span>📚</span></h1>
-        <p class="muted">Small steps, big progress.</p>
-      </div>
-      <div class="date-box">
-        <label for="studyDate">Study date</label>
-        <input type="date" id="studyDate">
-      </div>
-    </header>
+  <div class="background-glow"></div>
 
-    <section class="stats">
-      <article class="stat">
-        <span>Total study time</span>
-        <h2 id="totalTime">0m</h2>
-      </article>
-      <article class="stat">
-        <span>Tasks completed</span>
-        <h2 id="taskCount">0 / 0</h2>
-      </article>
-      <article class="stat">
-        <span>Daily progress</span>
-        <h2 id="progressText">0%</h2>
-      </article>
+  <main class="container">
+    <div class="logo">💗</div>
+    <p class="eyebrow">THE FRIENDSHIP LAB</p>
+
+    <h1>Friendship <span>Test</span></h1>
+    <p class="subtitle">
+      Best friends? Partners in crime? Let's find out! 😂
+    </p>
+
+    <section class="form-card">
+      <label for="name1">YOUR NAME</label>
+      <input id="name1" type="text" maxlength="30"
+        placeholder="Enter your name">
+
+      <div class="heart-divider">💞</div>
+
+      <label for="name2">YOUR FRIEND'S NAME</label>
+      <input id="name2" type="text" maxlength="30"
+        placeholder="Enter your friend's name">
+
+      <button id="testBtn" onclick="testFriendship()">
+        Test Our Friendship ✨
+      </button>
+
+      <p class="small-text">Warning: Friendship may be roasted 💀</p>
     </section>
 
-    <section class="panel timer-panel">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">FOCUS MODE</p>
-          <h2>⏱️ Study timer</h2>
-        </div>
-        <span class="save-indicator" id="saveStatus">● Saved locally</span>
+    <section id="result" class="result-card hidden"
+      aria-live="polite">
+      <div id="resultEmoji" class="result-emoji">💖</div>
+      <p class="eyebrow">YOUR COMPATIBILITY</p>
+
+      <div class="score">
+        <span id="percentage">0</span><span>%</span>
       </div>
 
-      <label for="timerSubject">What are you studying?</label>
-      <input id="timerSubject" maxlength="60"
-        placeholder="e.g. Mathematics" value="General Study">
-
-      <div class="timer-tabs">
-        <button type="button" class="tab active"
-          data-mode="stopwatch">Stopwatch</button>
-        <button type="button" class="tab"
-          data-mode="pomodoro">Pomodoro</button>
+      <div class="progress-track">
+        <div id="progressBar" class="progress-bar"></div>
       </div>
 
-      <div class="timer-face">
-        <p id="timerLabel">STOPWATCH</p>
-        <div id="timerDisplay" class="timer-display"
-          role="timer" aria-live="off">00:00:00</div>
-        <p id="timerHint" class="muted">
-          Track your study time at your own pace.
-        </p>
-      </div>
+      <h2 id="resultTitle">Partners in chaos!</h2>
+      <p id="resultMessage"></p>
 
-      <div id="pomodoroSettings" class="pomodoro-settings" hidden>
-        <div>
-          <span>Study</span>
-          <strong>25 min</strong>
-        </div>
-        <div>
-          <span>Break</span>
-          <strong>5 min</strong>
-        </div>
-      </div>
-
-      <div class="timer-actions">
-        <button id="startBtn" type="button">▶ Start</button>
-        <button id="pauseBtn" class="secondary"
-          type="button" disabled>⏸ Pause</button>
-        <button id="finishBtn" class="finish"
-          type="button" disabled>✓ Finish & save</button>
-        <button id="resetBtn" class="secondary"
-          type="button">↻ Reset</button>
-      </div>
-
-      <p class="timer-note">
-        Stopwatch time is saved when you finish. A completed Pomodoro
-        study phase is saved automatically; breaks are not counted.
-        Pausing or refreshing won't erase your active timer.
-      </p>
+      <button class="again-btn" onclick="resetTest()">
+        Try Again 🔄
+      </button>
+      <button class="share-btn" onclick="shareResult()">
+        Share Result 📲
+      </button>
     </section>
 
-    <section class="panel">
-      <h2>➕ Add study session manually</h2>
-      <form id="studyForm">
-        <label for="subject">Subject</label>
-        <input id="subject" placeholder="e.g. Science" required maxlength="60">
-
-        <div class="form-row">
-          <div>
-            <label for="hours">Hours</label>
-            <input id="hours" type="number" min="0" max="24"
-              value="1" required>
-          </div>
-          <div>
-            <label for="minutes">Minutes</label>
-            <input id="minutes" type="number" min="0" max="59"
-              value="0" required>
-          </div>
-        </div>
-
-        <label for="notes">What did you study?</label>
-        <input id="notes" placeholder="e.g. Chapter 2 revision"
-          maxlength="150">
-
-        <button class="full-button" type="submit">Save study session</button>
-      </form>
-    </section>
-
-    <section class="panel">
-      <div class="section-heading">
-        <h2>🎯 Daily tasks</h2>
-        <span class="muted">Tick when done</span>
-      </div>
-
-      <form id="taskForm" class="task-form">
-        <input id="taskInput" placeholder="Add a study task..."
-          required maxlength="120">
-        <button type="submit">Add</button>
-      </form>
-      <div id="taskList" class="task-list"></div>
-    </section>
-
-    <section class="panel">
-      <div class="section-heading">
-        <h2>📖 Study sessions</h2>
-        <span id="sessionCount" class="muted">0 sessions</span>
-      </div>
-      <div id="sessionList"></div>
-    </section>
-
-    <section class="panel">
-      <div class="section-heading">
-        <h2>📅 Study history</h2>
-        <button id="historyButton" class="secondary"
-          type="button">Show history</button>
-      </div>
-      <div id="historyList" hidden></div>
-    </section>
-
-    <footer class="footer">
-      <p>Built for your daily progress 💜</p>
-      <p>Data stays in this browser on this device.</p>
-    </footer>
+    <footer>Made with 💗 and a little bit of trolling.</footer>
   </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
